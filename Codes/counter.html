@@ -1,19 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Row Counter</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-image: url('backgroung.jpg');
+  <title>Row Counter</title>
+  <style>
+    body {
+            background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -24,165 +15,69 @@
             align-items: center;
             padding: 20px;
         }
-
-        .container {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-
-        .counter-display {
-            font-size: 5rem;
-            font-weight: bold;
-            color: #2575fc;
-            margin: 20px 0;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        button {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .increment-btn {
-            background-color: #2575fc;
-            color: white;
-        }
-
-        .increment-btn:hover {
-            background-color: #1a65e0;
-            transform: translateY(-2px);
-        }
-
-        .save-btn {
-            background-color: #6a11cb;
-            color: white;
-        }
-
-        .save-btn:hover {
-            background-color: #5a0db3;
-            transform: translateY(-2px);
-        }
-
-        .saved-counts {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .saved-counts h2 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .entries {
-            font-size: 1.4rem;
-            color: #555;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .counter-display {
-                font-size: 4rem;
-            }
-        }
-    </style>
+    .container {
+      text-align: center;
+      background-color :darkgray;
+      padding: 30px 50px;
+      border-radius: 10px;
+      box-shadow :brown;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 3em;
+      margin: 10px 0;
+    }
+    .btn {
+      border: none;
+      color: white;
+      padding: 10px 25px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .red {
+      background-color :red;
+    }
+    .green {
+      background-color :green;
+    }
+    #save-el {
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Row Counter</h1>
-        
-        <div class="counter-display" id="counter">0</div>
-        
-        <div class="buttons">
-            <button class="increment-btn" id="incrementBtn">INCREMENT</button>
-            <button class="save-btn" id="saveBtn">SAVE</button>
-        </div>
-        
-        <div class="saved-counts">
-            <h2>Previous entries:</h2>
-            <div class="entries" id="entries">-</div>
-        </div>
-    </div>
-
-    <script>
-        const counterDisplay = document.getElementById('counter');
-        const incrementBtn = document.getElementById('incrementBtn');
-        const saveBtn = document.getElementById('saveBtn');
-        const entriesDisplay = document.getElementById('entries');
-
-        let count = 0;
-        let savedEntries = [];
-
-        function updateCounter() {
-            counterDisplay.textContent = count;
-        }
-
-        function updateEntries() {
-            if (savedEntries.length === 0) {
-                entriesDisplay.textContent = '-';
-            } else {
-                entriesDisplay.textContent = savedEntries.join(' - ');
-            }
-        }
-
-        incrementBtn.addEventListener('click', () => {
-            count++;
-            updateCounter();
-        });
-
-        saveBtn.addEventListener('click', () => {
-            if (count > 0) {
-                savedEntries.push(count);
-                updateEntries();
-                count = 0;
-                updateCounter();
-            }
-        });
-
-        savedEntries = [2, 4];
-        updateEntries();
-    </script>
+  <div class="container">
+    <h1>Row Counter</h1>
+    <h2 id="count-el">0</h2>
+    <button id="increment-btn" class="btn red">INCREMENT</button>
+    <button id="save-btn" class="btn green">SAVE</button>
+    <p id="save-el">Previous entries: </p>
+  </div>
+  <script>
+    let countEl = document.getElementById("count-el");
+    let saveEl = document.getElementById("save-el");
+    let count = 0;
+    document.getElementById("increment-btn").addEventListener("click", function() {
+      count += 1;
+      countEl.textContent = count;
+    });
+    document.getElementById("save-btn").addEventListener("click", function() {
+      saveEl.textContent += count + " - ";
+      count = 0;
+      countEl.textContent = count;
+    });
+  </script>
 </body>
+
 </html>
